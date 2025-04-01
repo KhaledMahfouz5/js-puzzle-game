@@ -1,7 +1,7 @@
 const imageFiles = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
 const selectedImage = `./images/${imageFiles[Math.floor(Math.random() * imageFiles.length)]}`;
-const PIECE_COUNT = 12;
-const COLS = 3, ROWS = 4;
+const PIECE_COUNT = 16;  
+const COLS = 4, ROWS = 4;  
 
 let draggedPiece = null;
 
@@ -30,8 +30,8 @@ function createPieces() {
         const col = i % COLS;
         const row = Math.floor(i / COLS);
         piece.style.backgroundImage = `url(${selectedImage})`;
-        piece.style.backgroundPosition = `${-col * (100 / (COLS - 1))}% ${-row * (100 / (ROWS - 1))}%`;
-
+	piece.style.backgroundPosition = `${-col * (100 / (COLS - 1))}% ${-row * (100 / (ROWS - 1))}%`;
+	    
         piece.addEventListener('dragstart', handleDragStart);
         piece.addEventListener('dragend', handleDragEnd);
         
