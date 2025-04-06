@@ -1,4 +1,4 @@
-const imageFiles = ['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg'];
+const imageFiles = Array.from({ length: 25 }, (_, i) => `image${i + 1}.jpg`);
 const selectedImage = `images/${imageFiles[Math.floor(Math.random() * imageFiles.length)]}`;
 const reloadBtn = document.getElementById('reloadBtn');
 const PIECE_COUNT = 16;
