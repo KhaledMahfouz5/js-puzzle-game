@@ -1,111 +1,111 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f2f5;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background: #f0f2f5;
+	margin: 0;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
 }
 
 h1 {
-    color: #2c3e50;
-    margin-bottom: 30px;
+	color: #2c3e50;
+	margin-bottom: 30px;
 }
 
 .game-container {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    flex-wrap: wrap;
+	display: flex;
+	gap: 30px;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 
 .puzzle-container {
-    position: relative;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+	position: relative;
+	background: white;
+	padding: 20px;
+	border-radius: 12px;
+	box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .puzzle-board {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-    width: 500px;
-    height: 500px;
-    border: 2px solid #dee2e6;
-    border-radius: 8px;
-    overflow: hidden;
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 2px;
+	width: 500px;
+	height: 500px;
+	border: 2px solid #dee2e6;
+	border-radius: 8px;
+	overflow: hidden;
 }
 
 .ghost-overlay {
-    display: none; /* Ghost effect hidden */
+	display: none; /* Ghost effect hidden */
 }
 
 .puzzle-slot {
-    position: relative;
-    background: rgba(255, 255, 255, 0.9);
-    z-index: 2;
+	position: relative;
+	background: rgba(255, 255, 255, 0.9);
+	z-index: 2;
 }
 
 .puzzle-piece {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-size: 500px 500px;
-    cursor: grab;
-    transition: all 0.4s ease;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    z-index: 3;
-    opacity: 0; /* Initially hidden */
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background-size: 500px 500px;
+	cursor: grab;
+	transition: all 0.4s ease;
+	border-radius: 4px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	z-index: 3;
+	opacity: 0; /* Initially hidden */
 }
 
 .puzzle-piece.draggable {
-    border: 2px solid #4dabf7;
-    opacity: 1; /* Visible when draggable */
+	border: 2px solid #4dabf7;
+	opacity: 1; /* Visible when draggable */
 }
 
 .puzzle-piece.draggable:hover {
-    transform: scale(1.03);
+	transform: scale(1.03);
 }
 
 .pieces-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    width: 500px;
-    padding: 20px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 10px;
+	width: 500px;
+	padding: 20px;
+	background: white;
+	border-radius: 12px;
+	box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .placed {
-    border: 2px solid #40c057 !important;
-    cursor: default;
-    box-shadow: none !important;
-    opacity: 1 !important;
+	border: 2px solid #40c057 !important;
+	cursor: default;
+	box-shadow: none !important;
+	opacity: 1 !important;
 }
 
 @keyframes scatter {
-    0% { transform: translate(0, 0) scale(1); opacity: 0; }
-    100% { transform: translate(var(--tx), var(--ty)) scale(1); opacity: 1; }
+	0% { transform: translate(0, 0) scale(1); opacity: 0; }
+	100% { transform: translate(var(--tx), var(--ty)) scale(1); opacity: 1; }
 }
 
 .scattering {
-    animation: scatter 0.8s ease-out forwards;
+	animation: scatter 0.8s ease-out forwards;
 }
 
 .correct-placement {
-    animation: correctPulse 0.5s ease;
+	animation: correctPulse 0.5s ease;
 }
 
 @keyframes correctPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+	0% { transform: scale(1); }
+	50% { transform: scale(1.05); }
+	100% { transform: scale(1); }
 }
