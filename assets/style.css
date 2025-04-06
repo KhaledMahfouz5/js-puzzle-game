@@ -129,3 +129,7 @@ h1 {
 .reload-btn:active {
   transform: scale(0.98);
 }
+
+audio {
+  display: none;
+}

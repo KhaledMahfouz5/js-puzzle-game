@@ -131,12 +131,27 @@ function showInvalidFeedback(element) {
 }
 
 function checkCompletion() {
-	const placedPieces = document.querySelectorAll('.placed').length;
-	if (placedPieces === PIECE_COUNT) {
-		setTimeout(() => {
-			alert('Congratulations! Puzzle Solved! 🎉');
-		}, 100);
-	}
+  const placedPieces = document.querySelectorAll('.placed').length;
+  if (placedPieces === PIECE_COUNT) {
+    const victorySound = document.getElementById('victorySound');
+
+    // Modern browsers handle promises for audio playback
+    const playSound = () => {
+      victorySound.currentTime = 0; // Rewind to start
+      victorySound.play().catch(e => console.log("Audio play failed:", e));
+    };
+
+    // iOS requires this to be triggered by user gesture
+    if (victorySound.readyState > 0) {
+      playSound();
+    } else {
+      victorySound.addEventListener('canplaythrough', playSound);
+    }
+
+    setTimeout(() => {
+      alert('Congratulations! Puzzle Solved! 🎉');
+    }, 100);
+  }
 }
 
 function setupEventListeners() {
