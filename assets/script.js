@@ -1,5 +1,6 @@
 const imageFiles = ['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg'];
 const selectedImage = `images/${imageFiles[Math.floor(Math.random() * imageFiles.length)]}`;
+const reloadBtn = document.getElementById('reloadBtn');
 const PIECE_COUNT = 16;
 const GRID_SIZE = 4;
 const BOARD_SIZE = 500;
@@ -142,3 +143,7 @@ function setupEventListeners() {
 	document.addEventListener('dragstart', handleDragStart);
 	document.addEventListener('dragend', handleDragEnd);
 }
+
+reloadBtn.addEventListener('click', () => {
+	window.location.reload();
+});
