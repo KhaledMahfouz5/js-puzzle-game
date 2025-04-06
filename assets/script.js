@@ -14,7 +14,7 @@ setupEventListeners();
 
 function createBoard() {
 	const board = document.getElementById('board');
-	board.innerHTML = '';
+	board.style.backgroundImage = `url(${selectedImage})`;
 
 	for(let i = 0; i < PIECE_COUNT; i++) {
 		const slot = document.createElement('div');
