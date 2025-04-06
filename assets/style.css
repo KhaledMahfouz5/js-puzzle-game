@@ -73,7 +73,8 @@ h1 {
 
 .pieces-container {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(4, 125px);
+	grid-auto-rows: 125px;
 	gap: 10px;
 	width: 500px;
 	padding: 20px;
