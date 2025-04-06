@@ -1,4 +1,4 @@
-const imageFiles = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
+const imageFiles = ['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg'];
 const selectedImage = `images/${imageFiles[Math.floor(Math.random() * imageFiles.length)]}`;
 const PIECE_COUNT = 16;
 const GRID_SIZE = 4;
