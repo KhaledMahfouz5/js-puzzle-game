@@ -4,14 +4,21 @@ const reloadBtn = document.getElementById('reloadBtn');
 const PIECE_COUNT = 16;
 const GRID_SIZE = 4;
 const BOARD_SIZE = 500;
+const HINT_DELAY_MS = 900;
+const HINT_DURATION_MS = 2400;
 
 let draggedPiece = null;
+let hintCursor = null;
+let hintTimeout = null;
+let hintAnimation = null;
 
 // Initialize game
 document.documentElement.style.setProperty('--puzzle-image', `url(${selectedImage})`);
 createBoard();
 createPieces();
+createHintCursor();
 setupEventListeners();
+startHintLoop();
 
 function createBoard() {
 	const board = document.getElementById('board');
@@ -152,6 +159,89 @@ function checkCompletion() {
       alert('Congratulations! Puzzle Solved! 🎉');
     }, 100);
   }
+}
+
+function createHintCursor() {
+	hintCursor = document.createElement('div');
+	hintCursor.id = 'helpCursor';
+	hintCursor.setAttribute('aria-hidden', 'true');
+	document.body.appendChild(hintCursor);
+}
+
+function startHintLoop() {
+	clearTimeout(hintTimeout);
+	runHintCycle();
+	window.addEventListener('resize', scheduleHintCycle);
+}
+
+function scheduleHintCycle() {
+	clearTimeout(hintTimeout);
+	hintTimeout = setTimeout(runHintCycle, HINT_DELAY_MS);
+}
+
+function runHintCycle() {
+	const placedPieces = document.querySelectorAll('.placed').length;
+	if (placedPieces === PIECE_COUNT) {
+		if (hintAnimation) {
+			hintAnimation.cancel();
+		}
+		if (hintCursor) {
+			hintCursor.style.opacity = '0';
+		}
+		return;
+	}
+
+	if (draggedPiece) {
+		scheduleHintCycle();
+		return;
+	}
+
+	const nextPiece = document.querySelector('.pieces-container .puzzle-piece.draggable');
+	if (!nextPiece) {
+		scheduleHintCycle();
+		return;
+	}
+
+	const targetSlot = document.querySelector(
+		`.puzzle-slot[data-position="${nextPiece.dataset.position}"]`
+	);
+
+	if (!targetSlot) {
+		scheduleHintCycle();
+		return;
+	}
+
+	const pieceRect = nextPiece.getBoundingClientRect();
+	const slotRect = targetSlot.getBoundingClientRect();
+	const startX = pieceRect.left + pieceRect.width / 2;
+	const startY = pieceRect.top + pieceRect.height / 2;
+	const endX = slotRect.left + slotRect.width / 2;
+	const endY = slotRect.top + slotRect.height / 2;
+
+	if (hintAnimation) {
+		hintAnimation.cancel();
+	}
+
+	hintCursor.style.left = `${startX}px`;
+	hintCursor.style.top = `${startY}px`;
+
+	hintAnimation = hintCursor.animate(
+		[
+			{ left: `${startX}px`, top: `${startY}px`, opacity: 0, transform: 'translate(-50%, -50%) scale(1)' },
+			{ opacity: 1, offset: 0.15 },
+			{ left: `${endX}px`, top: `${endY}px`, opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+			{ opacity: 0, offset: 1 }
+		],
+		{
+			duration: HINT_DURATION_MS,
+			easing: 'ease-in-out',
+			fill: 'forwards'
+		}
+	);
+
+	hintAnimation.onfinish = () => {
+		scheduleHintCycle();
+	};
 }
 
 function setupEventListeners() {
